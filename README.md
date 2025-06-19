@@ -14,35 +14,3 @@ This Spring Boot project provides a backend for a Mandarin learning application.
 
 Settings are defined in `src/main/resources/application.properties`:
 
-```
-openai.api.key=<your-openai-key>
-interaction.base-dir=interactions
-git.repo.path=<path-to-repo>
-git.branch=main
-```
-
-## Building
-
-Use Maven to build and test:
-
-```bash
-mvn clean package
-```
-
-## Running
-
-```bash
-mvn spring-boot:run
-```
-
-## API Example
-
-```bash
-curl -X POST http://localhost:8080/interaction \
-     -H 'Content-Type: application/json' \
-     -d '{"english":"hello","pinyin":"ni hao"}'
-```
-
-## License
-
-This project is licensed under the Creative Commons Zero v1.0 Universal License.
