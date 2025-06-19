@@ -1,5 +1,6 @@
 package com.deanofwalls.mandarin_codex.service.interaction;
 
+import com.deanofwalls.mandarin_codex.model.InteractionEntry;
 import com.deanofwalls.mandarin_codex.model.dto.InteractionRequest;
 import com.deanofwalls.mandarin_codex.model.dto.InteractionResponse;
 

@@ -18,6 +18,9 @@ public class JGitService implements GitService {
     @Value("${git.repo.path:}")
     private String repoPath;
 
+    @Value("${git.branch:main}")
+    private String branch;
+
     @Override
     public void commitChanges(List<String> paths, String message) {
         if (repoPath == null || repoPath.isEmpty()) {
