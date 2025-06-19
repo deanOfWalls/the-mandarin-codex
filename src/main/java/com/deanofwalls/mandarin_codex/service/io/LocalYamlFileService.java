@@ -7,6 +7,7 @@ import org.yaml.snakeyaml.Yaml;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -26,6 +27,8 @@ public class LocalYamlFileService implements YamlFileService {
             Path file = baseDir.resolve(fileName);
             try (Writer writer = Files.newBufferedWriter(file)) {
                 yaml.dump(entry, writer);
+            try (OutputStream os = Files.newOutputStream(file)) {
+                yaml.dump(entry, os);
             }
             return file;
         } catch (IOException e) {
@@ -48,6 +51,8 @@ public class LocalYamlFileService implements YamlFileService {
             Files.createDirectories(path.getParent());
             try (Writer writer = Files.newBufferedWriter(path)) {
                 yaml.dump(data, writer);
+            try (OutputStream os = Files.newOutputStream(path)) {
+                yaml.dump(data, os);
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed to write YAML", e);
