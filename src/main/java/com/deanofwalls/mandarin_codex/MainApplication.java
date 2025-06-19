@@ -1,4 +1,4 @@
-package com.yourname.CRUD_TEMPLATE;
+package com.deanofwalls.mandarin_codex;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

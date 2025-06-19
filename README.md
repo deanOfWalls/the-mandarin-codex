@@ -1,45 +1,46 @@
-# CRUD Template
+# Mandarin Learning Backend
 
-This project is a Maven-based CRUD Template using Java, Spring Boot, and an H2 database. It's designed as a starting point for beginners learning Java, Spring Boot, and basic CRUD operations.
+This Spring Boot project provides a backend for a Mandarin learning application. Users post their English and pinyin responses to `/interaction`. The service stores the data as YAML, triggers OpenAI GPT-4o for analysis, and commits the results to a Git repository.
 
-## Setup
+## Features
 
-### Option 1: Download as ZIP (Recommended for a Fresh Start)
+- REST endpoint `POST /interaction` accepting JSON with `english` and `pinyin` fields.
+- Saves each interaction under `interactions/YYYY-MM-DD/` using indexed YAML files.
+- Calls OpenAI GPT-4o to analyze the interaction and stores the reply as `*_response.yaml`.
+- Updates progress files and commits changes using GitHub credentials.
+- Modular services for GPT, YAML file handling, and Git operations.
 
-1. Navigate to the GitHub repository page.
-2. Look for the “Code” button and click it.
-3. Choose "Download ZIP".
-4. Extract the ZIP file in your desired location to start working on the project.
+## Configuration
 
-### Option 2: Clone the Repository (and Remove Git History)
+Settings are defined in `src/main/resources/application.properties`:
 
-1. Clone the repository.
-2. Navigate to the project directory in the terminal.
-3. Run `rm -rf .git` to remove the existing `.git` directory. This will delete the current Git history.
-4. Initialize a new Git repository with `git init`, if you wish to use Git for version control.
+```
+openai.api.key=<your-openai-key>
+interaction.base-dir=interactions
+git.repo.path=<path-to-repo>
+```
 
-## Customization
+## Building
 
-After obtaining the template (either by downloading the ZIP or cloning and removing the `.git` directory), you can make it your own:
+Use Maven to build and test:
 
-1. **Update Project Details**:
-    - Modify the `pom.xml` file to reflect your project's groupId, artifactId, and version.
-    - Update the `README.md` to suit your project.
+```bash
+mvn clean package
+```
 
-2. **Develop Your Application**:
-    - Add your own code, models, controllers, etc., to build your application.
+## Running
 
-## Dockerfile Usage
+```bash
+mvn spring-boot:run
+```
 
-This template includes a Dockerfile for easy deployment using Docker. To use it:
+## API Example
 
-1. Ensure the Java version in the Dockerfile matches your project requirements.
-2. Replace `com.yourname.CRUD_TEMPLATE.MainApplication` in the ENTRYPOINT command with your project's main class.
-3. If your project doesn't use a Maven wrapper (`mvnw`), update the Dockerfile to use your local Maven installation.
-4. Optionally, adjust the Maven build command to include or exclude test execution as per your needs.
-5. Build and run your Docker image for a containerized version of your application.
-
-This Dockerfile uses a multi-stage build process for efficiency and smaller image size.
+```bash
+curl -X POST http://localhost:8080/interaction \
+     -H 'Content-Type: application/json' \
+     -d '{"english":"hello","pinyin":"ni hao"}'
+```
 
 ## License
 
