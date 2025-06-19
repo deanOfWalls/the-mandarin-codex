@@ -19,6 +19,8 @@ This is the default project structure and does not reflect any changes made afte
 │   │   │               │   ├── AbstractInteraction.java
 │   │   │               │   ├── AbstractStats.java
 │   │   │               │   └── InteractionEntry.java
+│   │   │               │   ├── ProgressStats.java
+│   │   │               │   └── StatsData.java
 │   │   │               ├── service
 │   │   │               │   ├── git
 │   │   │               │   │   ├── GitService.java

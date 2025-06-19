@@ -1,6 +1,8 @@
 package com.deanofwalls.mandarin_codex.service.interaction;
 
 import com.deanofwalls.mandarin_codex.model.InteractionEntry;
+import com.deanofwalls.mandarin_codex.model.ProgressStats;
+import com.deanofwalls.mandarin_codex.model.StatsData;
 import com.deanofwalls.mandarin_codex.model.dto.InteractionRequest;
 import com.deanofwalls.mandarin_codex.model.dto.InteractionResponse;
 import com.deanofwalls.mandarin_codex.service.git.GitService;
@@ -46,7 +48,26 @@ public class InteractionServiceImpl implements InteractionService {
         Path responsePath = dir.resolve(String.format("%03d_response.yaml", entry.getIndex()));
         yamlService.writeYaml(responsePath, response);
 
-        gitService.commitChanges(List.of(inputPath.toString(), responsePath.toString()),
+        Path progressPath = dir.resolve("progress.yaml");
+        ProgressStats progress = yamlService.readYaml(progressPath, ProgressStats.class, new ProgressStats());
+        progress.getMastered().merge(request.getEnglish(), 1, Integer::sum);
+        yamlService.writeYaml(progressPath, progress);
+
+        Path statsPath = dir.resolve("stats.yaml");
+        StatsData stats = yamlService.readYaml(statsPath, StatsData.class, new StatsData());
+        stats.getAccuracy().merge("overall", 1.0, Double::sum);
+        yamlService.writeYaml(statsPath, stats);
+
+        Path historyPath = dir.resolve("history.log");
+        String summary = String.format("%03d | %s / %s -> %s%n", entry.getIndex(), request.getEnglish(), request.getPinyin(), response.getContent());
+        yamlService.writeString(historyPath, summary, true);
+
+        gitService.commitChanges(List.of(
+                        inputPath.toString(),
+                        responsePath.toString(),
+                        progressPath.toString(),
+                        statsPath.toString(),
+                        historyPath.toString()),
                 "Add interaction " + entry.getIndex());
         return response;
     }
