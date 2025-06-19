@@ -12,11 +12,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.yourname</groupId>
-    <artifactId>CRUD_TEMPLATE</artifactId>
+    <groupId>com.deanofwalls</groupId>
+    <artifactId>mandarin_codex</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>CRUD Template</name>
-    <description>A template for CRUD applications using Spring Boot</description>
+    <name>Mandarin Codex</name>
+    <description>Backend for Mandarin learning app</description>
 
     <properties>
         <!-- Set the source encoding to UTF-8 -->
@@ -51,6 +51,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- SnakeYAML for YAML parsing -->
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!-- JGit for Git operations -->
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+            <version>6.9.0.202403050737-r</version>
         </dependency>
 
         <!-- Add any other dependencies you need here -->
