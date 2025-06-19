@@ -7,7 +7,8 @@ This Spring Boot project provides a backend for a Mandarin learning application.
 - REST endpoint `POST /interaction` accepting JSON with `english` and `pinyin` fields.
 - Saves each interaction under `interactions/YYYY-MM-DD/` using indexed YAML files.
 - Calls OpenAI GPT-4o to analyze the interaction and stores the reply as `*_response.yaml`.
-- Updates progress files and commits changes using GitHub credentials.
+- Updates `progress.yaml`, `stats.yaml`, and `history.log` after each interaction.
+- Commits all updated files using GitHub credentials.
 - Modular services for GPT, YAML file handling, and Git operations.
 
 ## Configuration

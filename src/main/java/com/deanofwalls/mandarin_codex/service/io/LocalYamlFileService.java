@@ -44,6 +44,15 @@ public class LocalYamlFileService implements YamlFileService {
     }
 
     @Override
+    public <T> T readYaml(Path path, Class<T> type, T defaultValue) {
+        try (InputStream is = Files.newInputStream(path)) {
+            return yaml.loadAs(is, type);
+        } catch (IOException e) {
+            return defaultValue;
+        }
+    }
+
+    @Override
     public void writeYaml(Path path, Object data) {
         try {
             Files.createDirectories(path.getParent());
@@ -52,6 +61,21 @@ public class LocalYamlFileService implements YamlFileService {
             }
         } catch (IOException e) {
             throw new RuntimeException("Failed to write YAML", e);
+        }
+    }
+
+    @Override
+    public void writeString(Path path, String data, boolean append) {
+        try {
+            Files.createDirectories(path.getParent());
+            if (append) {
+                Files.writeString(path, data, StandardCharsets.UTF_8,
+                        Files.exists(path) ? java.nio.file.StandardOpenOption.APPEND : java.nio.file.StandardOpenOption.CREATE);
+            } else {
+                Files.writeString(path, data, StandardCharsets.UTF_8);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to write text", e);
         }
     }
 }

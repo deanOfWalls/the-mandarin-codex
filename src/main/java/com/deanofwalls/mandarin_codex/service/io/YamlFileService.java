@@ -12,5 +12,9 @@ public interface YamlFileService {
 
     <T> T readYaml(Path path, Class<T> type);
 
+    <T> T readYaml(Path path, Class<T> type, T defaultValue);
+
     void writeYaml(Path path, Object data);
+
+    void writeString(Path path, String data, boolean append);
 }
